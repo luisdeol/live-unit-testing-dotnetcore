@@ -12,7 +12,7 @@ namespace LiveTestingExemplo.Repositories
         {
 
         }
-        public Task AddProduct(Product product)
+        public Task Add(Product product)
         {
             throw new NotImplementedException();
         }

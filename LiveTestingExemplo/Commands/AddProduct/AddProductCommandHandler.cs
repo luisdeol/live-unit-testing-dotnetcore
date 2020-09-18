@@ -1,26 +1,27 @@
 ﻿using LiveTestingExemplo.Context;
 using LiveTestingExemplo.Entities;
+using LiveTestingExemplo.Repositories;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace LiveTestingExemplo.Commands.AddProduct
 {
-    public class AddProductCommandHandler : IRequestHandler<AddProductCommand, Unit>
+    public class AddProductCommandHandler : IRequestHandler<AddProductCommand, Product>
     {
-        private readonly StoreDbContext _storeDbContext;
-        public AddProductCommandHandler(StoreDbContext storeDbContext)
+        private readonly IProductRepository _productRepository;
+        public AddProductCommandHandler(IProductRepository productRepository)
         {
-            _storeDbContext = storeDbContext;
+            _productRepository = productRepository;
         }
 
-        public async Task<Unit> Handle(AddProductCommand request, CancellationToken cancellationToken)
+        public async Task<Product> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
             var product = new Product(request.Title, request.Description, request.Price);
 
-            await _storeDbContext.Products.AddAsync(product);
+            var productDb = await _productRepository.Add(product);
 
-            return Unit.Value;
+            return productDb;
         }
     }
 }

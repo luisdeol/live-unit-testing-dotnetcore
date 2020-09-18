@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using LiveTestingExemplo.Entities;
+using MediatR;
 
 namespace LiveTestingExemplo.Commands.AddProduct
 {
-    public class AddProductCommand : IRequest<Unit>
+    public class AddProductCommand : IRequest<Product>
     {
         public AddProductCommand(string title, string description, decimal price)
         {

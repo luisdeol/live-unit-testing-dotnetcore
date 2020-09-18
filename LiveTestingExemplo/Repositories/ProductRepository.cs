@@ -1,4 +1,5 @@
-﻿using LiveTestingExemplo.Entities;
+﻿using LiveTestingExemplo.Context;
+using LiveTestingExemplo.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,13 +9,17 @@ namespace LiveTestingExemplo.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        public ProductRepository()
+        private readonly StoreDbContext _storeDbContext;
+        public ProductRepository(StoreDbContext storeDbContext)
         {
-
+            _storeDbContext = storeDbContext;
         }
-        public Task Add(Product product)
+
+        public async Task<Product> Add(Product product)
         {
-            throw new NotImplementedException();
+            await _storeDbContext.Products.AddAsync(product);
+
+            return product;
         }
 
         public List<Product> GetAll()

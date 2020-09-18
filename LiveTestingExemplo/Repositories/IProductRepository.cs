@@ -6,7 +6,7 @@ namespace LiveTestingExemplo.Repositories
 {
     public interface IProductRepository
     {
-        Task Add(Product product);
+        Task<Product> Add(Product product);
         List<Product> GetAll();
     }
 }
